@@ -1,0 +1,71 @@
+<?php
+// config.php.dist
+return array(
+
+	// enabled debugging (true) or disable it (false)
+	'debug' => false,
+	
+	// Path where to store the files, you may want to use a dropbox folder
+	'dropbox_path' => '/home/myself/Dropbox',
+	
+	// Configuration for accessing the Learnweb, use your ZIV account
+	'username' => 'u_user01',
+	'password' => 'supersecret',
+	
+	// Here you can add lectures that use the course listing, only use single sign on URLs, 
+	// so the URL must look like in the examples below, the dropbox_path will be prepended
+	// to the target folder
+	'learnwebcourses' => array(
+		array(
+			'source' => 'https://sso.uni-muenster.de/LearnWeb/learnweb2/course/view.php?id=123',
+			'target' => 'MyCourse'
+		),
+		
+		// You may add further courses if you like
+		array(
+			'source' => '...',
+			'target' => '...',
+			'crackpdf' => '...'
+		)
+	),
+	
+	// Here you can add lectures that use the folder listing, only use single sign on URLs,
+	// so the URL must look like in the examples below, the dropbox_path will be prepended
+	// to the target folder
+	'learnwebfolders' => array(
+		array(
+			'source' => 'https://sso.uni-muenster.de/LearnWeb/learnweb2/mod/folder/view.php?id=123',
+			'target' => 'MyCourse/Slides'
+		),
+		
+		// You may add further cuourses here, add a course for each folder
+		array(
+			'source' => '...',
+			'target' => 'MyCourse/CaseStudies',
+			'crackpdf' => '...'
+		)
+	),
+	
+		// There is still support for uDoo courses, even though it is not used anymore
+		// You need to specify the URL of the course and the target folder where to store files
+	'udoo' => array(
+		array(
+			'source' => 'http://www.wi.uni-muenster.de/...',
+			'target' => 'MyUDooCourse',
+			'map' => array(
+				array(
+					'from' => 'Fallstudien',
+					'to' => '01 Fallstudien'
+				),
+				array(
+					'from' => 'Foliensaetze',
+					'to' => '02 Foliensaetze'
+				),
+				array(
+					'from' => 'Ohne_Kategoriezuordnung',
+					'to' => '99 Sonstiges'
+				)
+			)
+		)
+	)
+);
