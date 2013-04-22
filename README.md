@@ -39,6 +39,28 @@ vi config.php
 
 Run the update script, ideally you would do this periodically e.g. by cron:
 
-```
+```bash
 php bin/update.php
 ```
+
+
+Configuration
+-------------
+
+### Credentials
+
+You need to specify the username and the passwort of your ZIV account in `username` and `password` setting in the `config.php`.
+
+### Courses
+
+Add all courses you want to crawl to the `config.php`, see `config.php.dist` for some examples. There are two types of courses in Learnweb, some use the course view to list files, some use the folder view of Moodle. Looking at the URL you can easily determine which type of course you are dealing with.
+
+### Cracking PDF files
+
+Sometimes PDF files have a user password which you need to enter all the time you open the PDF file. Learnweb-Crawler can convert the PDF file to PS and back to PDF which generates a PDF file which can be opened without password. This only works if you know the user password and the tools `pdftops` and `ps2pdf` are installed on your system. On Debian simply install these two packages:
+
+```bash
+apt-get install ghostscript poppler-utils
+```
+
+The actually executed commands may be specified as `pdf2PsCmd` and `ps2PdfCmd` in the `config.php`, see `config.php.dist` for an example.

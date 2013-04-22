@@ -25,6 +25,7 @@ return array(
 		array(
 			'source' => '...',
 			'target' => '...',
+			// add the crackpdf key if you want to convert PDF files
 			'crackpdf' => '...'
 		)
 	),
@@ -46,8 +47,8 @@ return array(
 		)
 	),
 	
-		// There is still support for uDoo courses, even though it is not used anymore
-		// You need to specify the URL of the course and the target folder where to store files
+	// There is still support for uDoo courses, even though it is not used anymore
+	// You need to specify the URL of the course and the target folder where to store files
 	'udoo' => array(
 		array(
 			'source' => 'http://www.wi.uni-muenster.de/...',
@@ -67,5 +68,15 @@ return array(
 				)
 			)
 		)
-	)
+	),
+	
+	// You man specify a custom pdf2ps command if you like, %1$s is the PDF passwort,
+	// %2$s is the source file (PDF file), %3$s is the target file (temporary PS file)
+	// simply remove this setting if you want to stick with the defaults
+	'pdf2PsCmd' => '/usr/bin/pdftops -upw %1$s %2$s %3$s',
+	
+	// You man specify a custom ps2pdf command if you like, %1$s is the source file
+	// (temporary PS file) and %1$s is the target file (PDF file)
+	// simply remove this setting if you want to stick with the defaults
+	'ps2PdfCmd' => '/usr/bin/ps2pdf %1$s %1$s'
 );

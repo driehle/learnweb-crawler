@@ -18,7 +18,9 @@ $config = new Zend\Config\Config(include $baseDir . '/config.php');
 define('LEARNWEB_DEBUG', (bool) $config->debug);
 
 // create pdf cracker
-$pdf = new LearnwebCrawler\PdfCrack();
+$pdf2Ps = (isset($config->pdf2PsCmd) ? $config->pdf2PsCmd : null);
+$ps2Pdf = (isset($config->ps2Pdf) ? $config->ps2Pdf : null);
+$pdf = new LearnwebCrawler\PdfCrack($pdf2Ps, $ps2Pdf);
 
 // handle learnweb courses
 if (isset($config->learnwebcourses)) {
