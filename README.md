@@ -64,3 +64,9 @@ apt-get install ghostscript poppler-utils
 ```
 
 The actually executed commands may be specified as `pdf2PsCmd` and `ps2PdfCmd` in the `config.php`, see `config.php.dist` for an example.
+
+### Cleaning target directory
+
+If some courses rename files or folders at will, you may end up having several files in the Dropbox twice (or even more). In that case you may want to set `"cleanTarget" => true` for those Learnweb courses, which makes learnweb crawler delete all files and folders from that directory and the downloads all files again.
+
+To prevent a specific directory from beeing deleted, add a file named `.keep` to it.

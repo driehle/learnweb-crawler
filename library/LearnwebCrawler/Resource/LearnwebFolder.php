@@ -4,19 +4,6 @@ namespace LearnwebCrawler\Resource;
 
 class LearnwebFolder extends AbstractLearnweb
 {
-	public function handle ($config)
-	{
-		if ($config instanceof \Zend\Config\Config) {
-			$config = $config->toArray();
-		}
-		
-		if (!is_dir($this->_dropbox . '/' . $config['target'])) {
-			mkdir ($this->_dropbox . '/' . $config['target']);
-		}
-		
-		$this->_fetchDirectory ($config);
-	}
-	
 	protected function _fetchDirectory (array $config, $indent = 0)
 	{
 		if (LEARNWEB_DEBUG) {
