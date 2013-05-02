@@ -51,6 +51,15 @@ Configuration
 
 You need to specify the username and the passwort of your ZIV account in `username` and `password` setting in the `config.php`.
 
+If you do not want to specify your password in the `config.php`, you may create a file `password.txt` in the same folder and use the following configuration:
+
+```
+        'username' => 'u_user01',
+        'password' => trim(file_get_contents(__DIR__ . '/password.txt')),
+```
+
+This may prevent other people seeing your password while you edit the `config.php`. Kepp in mind that the password needs to be stored readable for the Learnweb crawler, for it to be able to access the Learnweb.
+
 ### Courses
 
 Add all courses you want to crawl to the `config.php`, see `config.php.dist` for some examples. There are two types of courses in Learnweb, some use the course view to list files, some use the folder view of Moodle. Looking at the URL you can easily determine which type of course you are dealing with.
@@ -70,16 +79,4 @@ The actually executed commands may be specified as `pdf2PsCmd` and `ps2PdfCmd` i
 If some courses rename files or folders at will, you may end up having several files in the Dropbox twice (or even more). In that case you may want to set `"cleanTarget" => true` for those Learnweb courses, which makes learnweb crawler delete all files and folders from that directory and the downloads all files again.
 
 To prevent a specific directory from beeing deleted, add a file named `.keep` to it.
-
-### Specify password in a separate file
-
-If you do not want to specify your password in the `config.php`, you may create a file `password.txt` in the same folder and use the following configuration:
-
-```
-        'username' => 'u_user01',
-        'password' => trim(file_get_contents(__DIR__ . '/password.txt')),
-```
-
-This may prevent other people seeing your password while you edit the `config.php`. Kepp in mind that the password needs to be stored readable for the Learnweb crawler, for it to be able to access the Learnweb.
-
 
