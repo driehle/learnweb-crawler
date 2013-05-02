@@ -46,7 +46,7 @@ abstract class AbstractLearnweb extends AbstractResource
 	protected function _clearDirectoryContent($dir)
 	{
 		$dir = rtrim($dir, DIRECTORY_SEPARATOR);
-		if (is_dir($dir)) {
+		if (!is_dir($dir)) {
 			return false;
 		}
 		
@@ -63,8 +63,10 @@ abstract class AbstractLearnweb extends AbstractResource
 				continue;
 			}
 			if (is_dir($dir . DIRECTORY_SEPARATOR . $entry)) {
-				$this->_clearDirectoryContent($dir . DIRECTORY_SEPARATOR . $entry);
-				rmdir($dir . DIRECTORY_SEPARATOR . $entry);
+				$result = $this->_clearDirectoryContent($dir . DIRECTORY_SEPARATOR . $entry);
+				if ($result) {
+					rmdir($dir . DIRECTORY_SEPARATOR . $entry);
+				}
 			}
 			else {
 				unlink($dir . DIRECTORY_SEPARATOR . $entry);
