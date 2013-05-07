@@ -20,14 +20,15 @@ class LearnwebFolder extends AbstractLearnweb
 			return;
 		}
 		
-		$begin = strpos($response->getContent(), '<div id="folder_tree" class="filemanager">');
-		$end   = strpos($response->getContent(), "\n", $begin);
+		$body  = $response->getBody();	
+		$begin = strpos($body, '<div id="folder_tree" class="filemanager">');
+		$end   = strpos($body, "\n", $begin);
 		
 		if ($begin === false || $end === false) {
 			echo 'Error finding content in ' . $config['source'] . "\n";
 			return;
 		}
-		$data = substr($response->getContent(), $begin, ($end - $begin));
+		$data = substr($body, $begin, ($end - $begin));
 		
 		$match = array();
 		if (preg_match_all('/<a href="([^"]*)">(.*)<\/a>/U', $data, $match, PREG_SET_ORDER)) {
@@ -85,7 +86,7 @@ class LearnwebFolder extends AbstractLearnweb
 		//$client->setStream($target);
 		$response = $client->send();
 		
-		file_put_contents($target, $response->getContent());
+		file_put_contents($target, $response->getBody());
 		
 		if (!$response->isOk()) {
 			echo str_repeat(' ', $indent) . 'Error fetching file ' . $url . "\n";

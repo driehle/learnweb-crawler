@@ -20,14 +20,15 @@ class LearnwebCourse extends AbstractLearnweb
 			return;
 		}
 		
-		$begin = strpos($response->getContent(), '<div id="content">');
-		$end   = strpos($response->getContent(), '#content -->');
+		$body  = $response->getBody();		
+		$begin = strpos($body, '<div id="content">');
+		$end   = strpos($body, '#content -->');
 		
 		if ($begin === false || $end === false) {
 			echo 'Error finding content in ' . $config['source'] . "\n";
 			return;
 		}
-		$data = substr($response->getContent(), $begin, ($end - $begin));
+		$data = substr($body, $begin, ($end - $begin));
 		
 		$moduleMatch = array();
 		if (preg_match_all('/<li id="section-(\d+)" class="section main[^"]*"\s*>(.*)<\/ul><!--class=\'section\'-->/Us', 
