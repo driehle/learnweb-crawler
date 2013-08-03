@@ -1,16 +1,14 @@
 Crawler for the WWU Learnweb2
 =============================
 
-This is a crawler writtein PHP to download files from the LearnWeb of the WWU and 
-store them into a local directory. This can be e.g. a Dropbox directory, that way
-you'll have your lectures with you whereever you go.
+This is a crawler written in PHP to download files from the LearnWeb of the WWU and store them into a local directory. This can be e.g. a Dropbox directory, that way you'll have your lectures with you whereever you go.
 
 
 Requirements
 ------------
 
   * PHP 5.3
-  * Linux system (probably works unter WIN, but not testet)
+  * Linux system (probably works under WIN, but not testet)
   
 
 Installation
@@ -30,7 +28,7 @@ php composer.phar self-update
 php composer.phar install
 ```
 
-Copy the configuration file and edit it to reflect your needs:
+Copy the configuration file and edit it to reflect your needs. See below for available configuration options.
 
 ```bash
 cp config.php.dist config.php
@@ -58,7 +56,7 @@ If you do not want to specify your password in the `config.php`, you may create 
         'password' => trim(file_get_contents(__DIR__ . '/password.txt')),
 ```
 
-This may prevent other people seeing your password while you edit the `config.php`. Kepp in mind that the password needs to be stored readable for the Learnweb crawler, for it to be able to access the Learnweb.
+This may prevent other people seeing your password while you edit the `config.php`. Keep in mind that the password needs to be stored readable for the Learnweb crawler, for it to be able to access the Learnweb.
 
 ### Courses
 
