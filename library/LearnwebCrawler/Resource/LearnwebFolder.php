@@ -21,7 +21,7 @@ class LearnwebFolder extends AbstractLearnweb
 		}
 		
 		$body  = $response->getBody();	
-		$begin = strpos($body, '<div id="folder_tree" class="filemanager">');
+		$begin = strpos($body, '<div id="folder_tree0" class="filemanager">');
 		$end   = strpos($body, "\n", $begin);
 		
 		if ($begin === false || $end === false) {
