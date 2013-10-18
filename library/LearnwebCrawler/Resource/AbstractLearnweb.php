@@ -33,7 +33,7 @@ abstract class AbstractLearnweb extends AbstractResource
 				'useragent' => 'DropboxBot/1.0',
 				'timeout' => 30,
 				'sslverifypeer' => false,
-				'maxredirects' => 5,
+				'maxredirects' => 10,
 				'storeresponse' => true
 			));
 			
