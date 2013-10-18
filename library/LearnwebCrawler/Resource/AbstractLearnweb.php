@@ -30,7 +30,7 @@ abstract class AbstractLearnweb extends AbstractResource
 	{
 		if ($this->_client == null) {
 			$this->_client = new Client(null, array(
-				'useragent' => 'DropboxBot/1.0',
+				'useragent' => 'LearnWebCrawler/1.0 (https://github.com/driehle/learnweb-crawler)',
 				'timeout' => 30,
 				'sslverifypeer' => false,
 				'maxredirects' => 10,
