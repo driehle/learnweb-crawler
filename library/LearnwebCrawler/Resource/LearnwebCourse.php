@@ -86,14 +86,16 @@ class LearnwebCourse extends AbstractLearnweb
 			mkdir ($this->_dropbox . '/' . $config['target']);
 		}
 		
-		$target = $this->_dropbox . '/' . $config['target'] . '/' . $title;
-		
+		$target = $this->_dropbox . '/' . $config['target'] . '/';
 		$client = $this->getClient();
 		
 		$client->setUri($url);
 		$response = $client->send();
-		$target .= $this->_cleanString(basename(urldecode($client->getUri())));
-		
+
+		$filename = basename(urldecode($client->getUri()));
+		$filename = preg_replace('/\\?(.*)$/', '', $filename);
+		$title    = preg_replace('/\\.[a-z]{2,4}$/', '', $title);
+		$target  .= $this->_cleanString($title . ' ' . $filename);
 
 		if (!$response->isOk()) {
 			echo str_repeat(' ', $indent) . 'Error ';
