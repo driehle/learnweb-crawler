@@ -56,15 +56,16 @@ class LearnwebCourse extends AbstractLearnweb
 					$name = $this->_cleanString($file->lastChild->firstChild->wholeText);
 				}
 					
-				if (strpos($url, '/resource/') !== false) {
+				if (strpos($url, '/mod/resource/') !== false) {
 					$url .= (strpos($url, '?') === false ? '?' : '&') . 'redirect=1';
 					$this->_fetchFile ($url, $name, $newConfig, $indent + 2);
 				}
-					
-			}	
-
+				if (strpos($url, '/mod/url/') !== false) {
+					$url .= (strpos($url, '?') === false ? '?' : '&') . 'redirect=1';
+					$this->_fetchLink ($url, $name, $newConfig, $indent + 2);
+				}
+			}
 		}
-
 	}
 	
 	protected function _fetchFile ($url, $title, array $config, $indent)
@@ -102,6 +103,33 @@ class LearnwebCourse extends AbstractLearnweb
 				echo str_repeat(' ', $indent) . "Cracking pdf file...\n";
 			}
 			$this->_pdfcrack->crackFile($target, $config['crackpdf']);
+		}
+	}
+	
+	protected function _fetchLink ($url, $title, array $config, $indent)
+	{
+		if (LEARNWEB_DEBUG) {
+			echo str_repeat(' ', $indent) . 'Fetching Link ' . $url . "\n";
+			echo str_repeat(' ', $indent) . 'Name: ' . $title . "\n";
+		}
+		
+		if (!is_dir($this->_dropbox . '/' . $config['target'])) {
+			mkdir ($this->_dropbox . '/' . $config['target']);
+		}
+		
+		$target = $this->_dropbox . '/' . $config['target'] . '/' . $title . '.url';
+		
+		$client = $this->getClient();
+		$client->setUri($url);
+		$response = $client->send();
+		
+		$link = (string) $client->getUri();
+		$content = "[InternetShortcut]\r\n"
+				 . "URL=$link\r\n ";
+		
+		file_put_contents($target, $content);
+		if (LEARNWEB_DEBUG) {
+			echo str_repeat(' ', $indent) . "Link fetched\n";
 		}
 	}
 }
