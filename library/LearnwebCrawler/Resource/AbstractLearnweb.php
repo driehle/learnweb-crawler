@@ -42,6 +42,11 @@ abstract class AbstractLearnweb extends AbstractResource
 		
 		return $this->_client;
 	}
+
+	protected function _configureClient($client)
+	{
+		$client->setAuth($this->_username, $this->_password);
+	}
 	
 	protected function _clearDirectoryContent($dir)
 	{

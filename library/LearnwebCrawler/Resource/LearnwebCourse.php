@@ -13,11 +13,13 @@ class LearnwebCourse extends AbstractLearnweb
 		
 		$client = $this->getClient();
 		$client->setUri($config['source']);
-		
+		$this->_configureClient($client);
+	
 		$response = $client->send();
 		
 		if (!$response->isOk()) {
 			echo 'Error reading ' . $config['source'] . "\n";
+			echo $response->getStatusCode() . ' ' . $response->getReasonPhrase() . "\n";
 			return;
 		}
 		
@@ -55,6 +57,8 @@ class LearnwebCourse extends AbstractLearnweb
 				if ($file->lastChild->nodeType == XML_ELEMENT_NODE) {
 					$name = $this->_cleanString($file->lastChild->firstChild->wholeText);
 				}
+
+				$this->_configureClient($client);
 					
 				if (strpos($url, '/mod/resource/') !== false) {
 					$url .= (strpos($url, '?') === false ? '?' : '&') . 'redirect=1';
@@ -92,7 +96,9 @@ class LearnwebCourse extends AbstractLearnweb
 		
 
 		if (!$response->isOk()) {
-			echo str_repeat(' ', $indent) . 'Error fetching file ' . $url . "\n";
+			echo str_repeat(' ', $indent) . 'Error ';
+			echo $response->getStatusCode() . ' ' . $response->getReasonPhrase();
+			echo ' fetching file ' . $url . "\n";
 			return;
 		}
 		
