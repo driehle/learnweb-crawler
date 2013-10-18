@@ -60,9 +60,12 @@ class LearnwebCourse extends AbstractLearnweb
 					$url .= (strpos($url, '?') === false ? '?' : '&') . 'redirect=1';
 					$this->_fetchFile ($url, $name, $newConfig, $indent + 2);
 				}
-				if (strpos($url, '/mod/url/') !== false) {
+				elseif (strpos($url, '/mod/url/') !== false) {
 					$url .= (strpos($url, '?') === false ? '?' : '&') . 'redirect=1';
 					$this->_fetchLink ($url, $name, $newConfig, $indent + 2);
+				}
+				elseif (preg_match('=/mod/(forum|choice|quiz|assign)/=', $url)) {
+					$this->_createLink ($url, $name, $newConfig, $indent + 2);
 				}
 			}
 		}
@@ -130,6 +133,27 @@ class LearnwebCourse extends AbstractLearnweb
 		file_put_contents($target, $content);
 		if (LEARNWEB_DEBUG) {
 			echo str_repeat(' ', $indent) . "Link fetched\n";
+		}
+	}
+	
+	protected function _createLink ($url, $title, array $config, $indent)
+	{
+		if (LEARNWEB_DEBUG) {
+			echo str_repeat(' ', $indent) . 'Creating Link ' . $url . "\n";
+			echo str_repeat(' ', $indent) . 'Name: ' . $title . "\n";
+		}
+		
+		if (!is_dir($this->_dropbox . '/' . $config['target'])) {
+			mkdir ($this->_dropbox . '/' . $config['target']);
+		}
+		
+		$target = $this->_dropbox . '/' . $config['target'] . '/' . $title . '.url';
+		$content = "[InternetShortcut]\r\n"
+				 . "URL=$url\r\n ";
+		
+		file_put_contents($target, $content);
+		if (LEARNWEB_DEBUG) {
+			echo str_repeat(' ', $indent) . "Link created\n";
 		}
 	}
 }
